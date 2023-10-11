@@ -1,5 +1,6 @@
 package company.cslee.board.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.bind.annotation.Mapping;
 
@@ -23,4 +24,15 @@ public class User extends BaseEntity{
 
     @OneToMany(mappedBy = "user")
     private List<Board> boards = new ArrayList<>();
+
+    protected User() {
+
+    }
+
+    @Builder
+    protected User(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
 }
