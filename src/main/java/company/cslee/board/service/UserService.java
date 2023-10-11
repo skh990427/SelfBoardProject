@@ -27,7 +27,7 @@ public class UserService {
         User user = User.builder()
                 .email(userRequestDto.getEmail())
                 .name(userRequestDto.getName())
-                .password(userRequestDto.getPassword())
+                .password(userRequestDto.getPassword()) //Security 로직 추가
                 .build();
 
         userRepository.save(user);
