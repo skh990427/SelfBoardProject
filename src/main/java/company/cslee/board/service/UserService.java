@@ -4,6 +4,7 @@ import company.cslee.board.dto.UserRequestDto;
 import company.cslee.board.model.User;
 import company.cslee.board.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public void signUp(UserRequestDto userRequestDto) {
@@ -27,7 +29,7 @@ public class UserService {
         User user = User.builder()
                 .email(userRequestDto.getEmail())
                 .name(userRequestDto.getName())
-                .password(userRequestDto.getPassword()) //Security 로직 추가
+                .password(passwordEncoder.encode(userRequestDto.getPassword())) //Security 암호화 적용
                 .build();
 
         userRepository.save(user);
