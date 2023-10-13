@@ -10,6 +10,9 @@ public class Board extends BaseEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "title", nullable = false)
+    private String title;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
