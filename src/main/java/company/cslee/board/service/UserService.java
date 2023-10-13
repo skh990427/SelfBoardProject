@@ -1,6 +1,6 @@
 package company.cslee.board.service;
 
-import company.cslee.board.dto.UserRequestDto;
+import company.cslee.board.dto.RequestDto.UserRequestDto;
 import company.cslee.board.model.User;
 import company.cslee.board.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

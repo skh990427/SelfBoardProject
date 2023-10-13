@@ -1,4 +1,4 @@
-package company.cslee.board.dto;
+package company.cslee.board.dto.RequestDto;
 
 import lombok.Getter;
 

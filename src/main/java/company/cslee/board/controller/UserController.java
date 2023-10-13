@@ -1,6 +1,6 @@
 package company.cslee.board.controller;
 
-import company.cslee.board.dto.UserRequestDto;
+import company.cslee.board.dto.RequestDto.UserRequestDto;
 import company.cslee.board.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
