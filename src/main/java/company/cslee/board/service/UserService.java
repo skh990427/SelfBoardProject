@@ -1,6 +1,8 @@
 package company.cslee.board.service;
 
+import company.cslee.board.dto.RequestDto.LoginRequestDto;
 import company.cslee.board.dto.RequestDto.UserRequestDto;
+import company.cslee.board.dto.ResponseDto.LoginResponseDto;
 import company.cslee.board.model.User;
 import company.cslee.board.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +35,18 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
+    }
+
+    public Optional<LoginResponseDto> login(LoginRequestDto loginRequestDto) {
+        Optional<User> findUser = userRepository.findByEmail(loginRequestDto.getEmail());
+        if (findUser.isEmpty())
+            return Optional.empty();
+
+        if (passwordEncoder.matches(loginRequestDto.getPassword(), findUser.get().getPassword())) {
+            LoginResponseDto loginResponseDto = new LoginResponseDto(findUser.get().getId(), findUser.get().getEmail(), findUser.get().getName());
+            return Optional.of(loginResponseDto);
+        } else {
+            return Optional.empty();
+        }
     }
 }
