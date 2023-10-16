@@ -1,7 +1,6 @@
 package company.cslee.board.service;
 
-import company.cslee.board.dto.ResponseDto.BoardListDto;
-import company.cslee.board.model.Board;
+import company.cslee.board.dto.ResponseDto.BoardListResponseDto;
 import company.cslee.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public List<BoardListDto> boardListAll() {
+    public List<BoardListResponseDto> boardListAll() {
         return boardRepository.findBoardListDto();
     }
 }
