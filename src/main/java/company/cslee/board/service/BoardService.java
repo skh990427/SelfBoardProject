@@ -1,6 +1,7 @@
 package company.cslee.board.service;
 
 import company.cslee.board.dto.RequestDto.BoardWriteRequestDto;
+import company.cslee.board.dto.ResponseDto.BoardDetailResponseDto;
 import company.cslee.board.dto.ResponseDto.BoardListResponseDto;
 import company.cslee.board.dto.ResponseDto.BoardWriteResponseDto;
 import company.cslee.board.model.Board;
@@ -42,6 +43,23 @@ public class BoardService {
 
         boardRepository.save(newBoard);
         return Optional.of(new BoardWriteResponseDto(newBoard.getId()));
+
+    }
+
+    public Optional<BoardDetailResponseDto> boardDetail(Long id) {
+//        Optional<BoardDetailResponseDto> findBoard = boardRepository.findBoardDetailById(id);
+//        if (findBoard.isEmpty()) {
+//            Optional.empty();
+//        }
+
+        Optional<Board> findBoard = boardRepository.findById(id);
+        if (findBoard.isEmpty()) {
+            return Optional.empty();
+        }
+
+        BoardDetailResponseDto result = new BoardDetailResponseDto(findBoard.get().getTitle(), findBoard.get().getContent(), findBoard.get().getUser().getName(), findBoard.get().getUser().getId());
+
+        return Optional.of(result);
 
     }
 }
