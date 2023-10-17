@@ -1,6 +1,8 @@
 package company.cslee.board.service;
 
+import company.cslee.board.dto.RequestDto.BoardDeleteRequestDto;
 import company.cslee.board.dto.RequestDto.BoardWriteRequestDto;
+import company.cslee.board.dto.ResponseDto.BoardDeleteResponseDto;
 import company.cslee.board.dto.ResponseDto.BoardDetailResponseDto;
 import company.cslee.board.dto.ResponseDto.BoardListResponseDto;
 import company.cslee.board.dto.ResponseDto.BoardWriteResponseDto;
@@ -61,5 +63,20 @@ public class BoardService {
 
         return Optional.of(result);
 
+    }
+
+    @Transactional
+    public Optional<BoardDeleteResponseDto> deleteBoard(Long id, BoardDeleteRequestDto boardDeleteRequestDto) {
+        Optional<Board> findBoard = boardRepository.findById(id);
+        if (findBoard.isEmpty()) {
+            return Optional.empty();
+        }
+
+        if (findBoard.get().getUser().getId() == boardDeleteRequestDto.getUserId()) {
+            boardRepository.deleteById(id);
+            return Optional.of(new BoardDeleteResponseDto(findBoard.get().getId(), findBoard.get().getTitle(), "삭제가 완료되었습니다."));
+        }
+
+        return Optional.empty();
     }
 }

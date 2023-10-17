@@ -14,7 +14,8 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 // 허용할 오리진을 지정합니다.
                 registry.addMapping("/**") // 원하는 엔드포인트를 지정
-                        .allowedOrigins("http://localhost:8081"); // 클라이언트 도메인
+                        .allowedOrigins("http://localhost:8081") // 클라이언트 도메인
+                        .allowedMethods("POST", "DELETE", "GET"); // 허용할 HTTP 메서드
             }
         };
     }
