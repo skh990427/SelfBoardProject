@@ -13,9 +13,7 @@ import java.util.Optional;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    @Query("select new company.cslee.board.dto.ResponseDto.BoardListResponseDto(b.id, b.title, u.name) from Board b join b.user u")
+    @Query("select new company.cslee.board.dto.ResponseDto.BoardListResponseDto(b.id, b.title, u.name) from Board b join b.user u order by b.id")
     List<BoardListResponseDto> findBoardListDto();
 
-    @Query("select new company.cslee.board.dto.ResponseDto.BoardDetailResponseDto(b.title, b.content, u.name, u.id) from Board b join b.user u")
-    Optional<BoardDetailResponseDto> findBoardDetailById(Long id);
 }
