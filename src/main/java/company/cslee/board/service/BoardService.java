@@ -1,11 +1,9 @@
 package company.cslee.board.service;
 
 import company.cslee.board.dto.RequestDto.BoardDeleteRequestDto;
+import company.cslee.board.dto.RequestDto.BoardUpdateRequestDto;
 import company.cslee.board.dto.RequestDto.BoardWriteRequestDto;
-import company.cslee.board.dto.ResponseDto.BoardDeleteResponseDto;
-import company.cslee.board.dto.ResponseDto.BoardDetailResponseDto;
-import company.cslee.board.dto.ResponseDto.BoardListResponseDto;
-import company.cslee.board.dto.ResponseDto.BoardWriteResponseDto;
+import company.cslee.board.dto.ResponseDto.*;
 import company.cslee.board.model.Board;
 import company.cslee.board.model.User;
 import company.cslee.board.repository.BoardRepository;
@@ -78,5 +76,30 @@ public class BoardService {
         }
 
         return Optional.empty();
+    }
+
+    public Optional<BoardModifyLoadResponseDto> updateLoadBoard(Long id) {
+        Optional<Board> findOptionalBoard = boardRepository.findById(id);
+        if (findOptionalBoard.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Board findBoard = findOptionalBoard.get();
+
+        return Optional.of(new BoardModifyLoadResponseDto(findBoard.getTitle(), findBoard.getContent()));
+    }
+
+    @Transactional
+    public Optional<BoardUpdateResponseDto> updateBoard(BoardUpdateRequestDto boardUpdateRequestDto) {
+        Optional<Board> findBoard = boardRepository.findById(boardUpdateRequestDto.getId());
+        if (findBoard.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Board result = findBoard.get();
+
+        result.updateBoard(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
+
+        return Optional.of(new BoardUpdateResponseDto(result.getId(), result.getTitle()));
     }
 }

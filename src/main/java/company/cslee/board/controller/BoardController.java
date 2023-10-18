@@ -1,11 +1,9 @@
 package company.cslee.board.controller;
 
 import company.cslee.board.dto.RequestDto.BoardDeleteRequestDto;
+import company.cslee.board.dto.RequestDto.BoardUpdateRequestDto;
 import company.cslee.board.dto.RequestDto.BoardWriteRequestDto;
-import company.cslee.board.dto.ResponseDto.BoardDeleteResponseDto;
-import company.cslee.board.dto.ResponseDto.BoardDetailResponseDto;
-import company.cslee.board.dto.ResponseDto.BoardListResponseDto;
-import company.cslee.board.dto.ResponseDto.BoardWriteResponseDto;
+import company.cslee.board.dto.ResponseDto.*;
 import company.cslee.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -40,4 +38,13 @@ public class BoardController {
         return boardService.deleteBoard(id, boardDeleteRequestDto);
     }
 
+    @GetMapping("/updateload/{id}")
+    public Optional<BoardModifyLoadResponseDto> updateLoadBoard(@PathVariable Long id) {
+        return boardService.updateLoadBoard(id);
+    }
+
+    @PostMapping("/update")
+    public Optional<BoardUpdateResponseDto> updateBoard(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
+        return boardService.updateBoard(boardUpdateRequestDto);
+    }
 }
