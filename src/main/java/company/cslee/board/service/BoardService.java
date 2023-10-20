@@ -86,7 +86,7 @@ public class BoardService {
 
         Board findBoard = findOptionalBoard.get();
 
-        return Optional.of(new BoardModifyLoadResponseDto(findBoard.getTitle(), findBoard.getContent()));
+        return Optional.of(new BoardModifyLoadResponseDto(findBoard.getUser().getId(), findBoard.getTitle(), findBoard.getContent()));
     }
 
     @Transactional
