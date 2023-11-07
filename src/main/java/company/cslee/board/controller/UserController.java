@@ -5,10 +5,7 @@ import company.cslee.board.dto.RequestDto.UserRequestDto;
 import company.cslee.board.dto.ResponseDto.LoginResponseDto;
 import company.cslee.board.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +35,18 @@ public class UserController {
         } else {
             return Optional.empty();
         }
+    }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletResponse httpServletResponse) {
+        expireCookie(httpServletResponse, "user_id");
+
+    }
+
+    private static void expireCookie(HttpServletResponse httpServletResponse, String cookieName) {
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setMaxAge(0);
+        httpServletResponse.addCookie(cookie);
     }
 
 }
